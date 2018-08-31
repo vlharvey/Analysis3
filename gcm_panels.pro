@@ -33,39 +33,39 @@ case 1 of
     xlen=0.7
     ylen=0.7
     cbaryoff=0.1
-    cbarydel=0.02
+    cbarydel=0.01
   end
   (npp eq 2): begin
     nxdim=750
     nydim=750
-    xorig=[.2,.6]
-    yorig=[.3,.3]
-    xlen=0.3
+    xorig=[.2,.2]
+    yorig=[.6,.2]
+    xlen=0.6
     ylen=0.3
-    cbaryoff=0.15
-    cbarydel=0.02
-  end
-  (npp eq 3 and delta eq 'y'): begin
-    nxdim=1000
-    nydim=750
-    xorig=[.045,.385,.725]
-    yorig=[.20,.20,.20]
-    xlen=0.27
-    ylen=0.70
-    cbaryoff=0.1
+    cbaryoff=0.02
     cbarydel=0.01
   end
-  (npp eq 3 or npp eq 4): begin
+  (npp eq 3): begin
+    nxdim=750
+    nydim=1000
+    yorig=[.7,.4,.1]
+    xorig=[.2,.2,.2]
+    xlen=0.7
+    ylen=0.25
+    cbaryoff=0.05
+    cbarydel=0.01
+  end
+  (npp eq 4): begin
     nxdim=800
     nydim=800
-    xorig=[0.05,0.56,0.05,0.56]
-    yorig=[0.61,0.61,0.10,0.10]
-    xlen=0.36
-    ylen=0.36
-    cbaryoff=0.03
+    xorig=[0.1,0.55,0.1,0.55]
+    yorig=[0.6,0.6,0.15,0.15]
+    xlen=0.35
+    ylen=0.3
+    cbaryoff=0.06
     cbarydel=0.01
   end
-  (npp eq 6): begin
+  (npp eq 5 or npp eq 6): begin
     nxdim=750
     nydim=600
     xorig=[.01,.34,.67,.01,.34,.67]
@@ -73,7 +73,7 @@ case 1 of
     xlen=0.3
     ylen=0.4
     cbaryoff=0.03
-    cbarydel=0.02
+    cbarydel=0.01
 ; (npp eq 6): begin
 ;   nxdim=750
 ;   nydim=600
