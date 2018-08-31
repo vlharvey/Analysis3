@@ -1,4 +1,4 @@
-PRO MKLTIME,TIME,LON,LTIME,lday
+PRO MKLTIME,TIME,LON,LTIME,doy
 
 ;CALCULATE LOCAL TIME.
 ;TIME IS THE UT TIME IN HOURS.  LON IS THE EAST LONGITUDE.
@@ -13,12 +13,15 @@ PRO MKLTIME,TIME,LON,LTIME,lday
 ;       DAY=DAY+1.
 ;   180 LT LON LT 360:  LTIME=UT-dH.  IF LT<0  THEN LT=LT+24 AND LOCAL
 ;       DAY=DAY-1.
-
+;
 ;UT TIME (HRS) = SEC/3600.
+;
 UTH=TIME
 LTIME=TIME
 
    L=LON
+x=where(l lt 0.,nx)
+if nx gt 0 then l(x)=360+l(x)
    X=WHERE(L GT 180,NX)
    IF NX GT 0 THEN L(X)=360-L(X)
 
@@ -30,13 +33,13 @@ LTIME=TIME
    X=WHERE(LTIME GT 24,NX)
    IF NX GT 0 THEN BEGIN
       LTIME(X)=LTIME(X)-24
-      lday(x)=lday(x)+1
+      doy(x)=doy(x)+1
    ENDIF
 
    X=WHERE(LTIME LT 0,NX)
    IF NX GT 0 THEN BEGIN
       LTIME(X)=LTIME(X)+24
-      lday(x)=lday(x)-1
+      doy(x)=doy(x)-1
    ENDIF
 
 END

@@ -32,20 +32,21 @@
 	ENDIF ELSE BEGIN
 	  scalar = 0				;vector input
 	ENDELSE
-
+        idate=strmid(idate,2,6)		; convert to 2 digit year
 	IF (info(info(0) + 1) eq 7) THEN BEGIN
 	  ascII = 1				;ascII input flag set
-	  yy = FIX(STRMID(idate,0,4))		;extract year
-	  mm = FIX(STRMID(idate,4,2))		;extract month
-	  dd = FIX(STRMID(idate,6,2))		;extract day
+	  yy = FIX(STRMID(idate,0,2))		;extract year
+	  mm = FIX(STRMID(idate,2,2))		;extract month
+	  dd = FIX(STRMID(idate,4,2))		;extract day
 	ENDIF ELSE BEGIN			;should be a longWord
 	  ascII = 0				;non-ascII input
 	  sdate = STRTRIM(STRING(idate),2)	;convert to string 
-	  yy = FIX(STRMID(sdate,0,4))		;extract year
-	  mm = FIX(STRMID(sdate,4,2))		;extract month
-	  dd = FIX(STRMID(sdate,6,2))		;extract day
+	  yy = FIX(STRMID(sdate,0,2))		;extract year
+	  mm = FIX(STRMID(sdate,2,2))		;extract month
+	  dd = FIX(STRMID(sdate,4,2))		;extract day
 	ENDELSE
 
+print,'in date2doy ',yy,mm,dd
 ;	Check for leap year and compute DOY:
 ;       	      J   F   M   A   M   J   J   A   S   O   N   D
 	imonth = [0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
