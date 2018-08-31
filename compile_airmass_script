@@ -1,0 +1,1 @@
+f77 MLS_airmass_3d_v01.f -o MLS_airmass_3d_v01.x -I/usr/local/include -L/usr/local/lib -lnetcdf

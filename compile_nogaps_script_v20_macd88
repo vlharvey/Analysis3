@@ -1,0 +1,1 @@
+ifort NOGAPS_traject_3d_v20.f -o NOGAPS_traject_3d_v20.x -I/Volumes/Data/Libraries/netcdf-3.6.2-ifort11.1-gcc4.2.1/include -L/Volumes/Data/Libraries/netcdf-3.6.2-ifort11.1-gcc4.2.1/lib -lnetcdf

@@ -1,0 +1,37 @@
+'MLS 3d airmass'				; charexp  experiment description
+.true.						; ukmo     ukmo wind 
+.false.						; gsfc     gsfc wind 
+.false.						; ecmwf    ecmwf wind 
+.false.						; restart  restart from existing traj
+'ukmo_mls_mar_2005.airm'			; rfile    restart file
+2005033112					; rtime    restart time
+'/aura7/harvey/GEOS5_data/Datfiles/'		; dirw     input wind directory
+10						; nfiles   number of input wind files
+'DAS.ops.asm.tavg3d_dyn_v.GEOS510.MetO.20050201_AVG.V01.nc3'
+'DAS.ops.asm.tavg3d_dyn_v.GEOS510.MetO.20050202_AVG.V01.nc3'
+'DAS.ops.asm.tavg3d_dyn_v.GEOS510.MetO.20050203_AVG.V01.nc3'
+'DAS.ops.asm.tavg3d_dyn_v.GEOS510.MetO.20050204_AVG.V01.nc3'
+'DAS.ops.asm.tavg3d_dyn_v.GEOS510.MetO.20050205_AVG.V01.nc3'
+'DAS.ops.asm.tavg3d_dyn_v.GEOS510.MetO.20050206_AVG.V01.nc3'
+'DAS.ops.asm.tavg3d_dyn_v.GEOS510.MetO.20050207_AVG.V01.nc3'
+'DAS.ops.asm.tavg3d_dyn_v.GEOS510.MetO.20050208_AVG.V01.nc3'
+'DAS.ops.asm.tavg3d_dyn_v.GEOS510.MetO.20050209_AVG.V01.nc3'
+'DAS.ops.asm.tavg3d_dyn_v.GEOS510.MetO.20050210_AVG.V01.nc3'
+'/aura6/data/MLS_data/Merged_data/'		; dirm     input sage3 file directory
+10						; nfiles   number of input sage3 files
+'mls_feb_01_2005_v2.2.merged'
+'mls_feb_02_2005_v2.2.merged'
+'mls_feb_03_2005_v2.2.merged'
+'mls_feb_04_2005_v2.2.merged'
+'mls_feb_05_2005_v2.2.merged'
+'mls_feb_06_2005_v2.2.merged'
+'mls_feb_07_2005_v2.2.merged'
+'mls_feb_08_2005_v2.2.merged'
+'mls_feb_09_2005_v2.2.merged'
+'mls_feb_10_2005_v2.2.merged'
+2005020112					; istime   starting time
+24.						; dtflow   dt flow field (hrs)
+20.						; dt       dt trajectory (min)
+.FALSE.						; igw      gravity wave winds
+24.						; dtout    output write time
+'geos5_mls_200502_3d.airm'			; ofile    output file

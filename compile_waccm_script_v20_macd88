@@ -1,0 +1,1 @@
+ifort WACCM_traject_3d_v20_macd88.f -o WACCM_traject_3d_v20_macd88.x -I/Volumes/Data/Libraries/netcdf-3.6.2-ifort11.1-gcc4.2.1/include -L/Volumes/Data/Libraries/netcdf-3.6.2-ifort11.1-gcc4.2.1/lib -lnetcdf

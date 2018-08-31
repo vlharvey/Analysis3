@@ -8,13 +8,6 @@ kmn  = 0
 igmt = fix(gmt)
 if (kyr mod 4) eq 0 then month(1) = 29 else month(1) = 28
 
-if igmt eq 0 then begin
-   kdy = 31
-   kmn = 12
-   kyr = kyr-1
-   return
-endif
-
 for j = 0, 11 do begin
     i = i + month(j)
     if i gt igmt then begin

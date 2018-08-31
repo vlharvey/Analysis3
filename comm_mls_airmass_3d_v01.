@@ -1,0 +1,90 @@
+c  system parameters:              
+      parameter (ncmax=144,nrmax=91,nthwmx=35,nfilmx=366,
+     &           nocmax=nthwmx*10000,nclus=1,
+     &           max_age=10,nmax=nocmax*nclus*(max_age+1))
+
+c  assimilation data
+      common/assimdata/usim(nrmax,ncmax,nthwmx),
+     &                 vsim(nrmax,ncmax,nthwmx),
+     &                 pvsim(nrmax,ncmax,nthwmx),
+     &                 psim(nrmax,ncmax,nthwmx),
+     &                 xmsfsim(nrmax,ncmax,nthwmx),
+     &                 qsim(nrmax,ncmax,nthwmx),
+     &                 qdfsim(nrmax,ncmax,nthwmx),
+     &                 xmarksim(nrmax,ncmax,nthwmx),
+     &                 vpsim(nrmax,ncmax,nthwmx),
+     &                 sfsim(nrmax,ncmax,nthwmx)
+c  .. wind data
+      common/winddata/ugrd(nrmax,ncmax,nthwmx),
+     &                vgrd(nrmax,ncmax,nthwmx),
+     &                xmsfgrd(nrmax,ncmax,nthwmx),
+     &                pgrd(nrmax,ncmax,nthwmx),
+     &                pvgrd(nrmax,ncmax,nthwmx),
+     &                qgrd(nrmax,ncmax,nthwmx),
+     &                qdfgrd(nrmax,ncmax,nthwmx),
+     &                xmarkgrd(nrmax,ncmax,nthwmx),
+     &                vpgrd(nrmax,ncmax,nthwmx),
+     &                sfgrd(nrmax,ncmax,nthwmx)
+
+c  integer grid data
+      integer nr,nc,nth
+      common/int2data/nr,nc,nth
+
+c  real grid data
+      common/griddata/dlon,dlat,x(ncmax),y(nrmax),th(nthwmx)
+
+c  trajectory arrays
+      common/trajdata/xn(nmax),yn(nmax),thn(nmax),t0n(nmax),
+     &                x0n(nmax),y0n(nmax),z0n(nmax),p0n(nmax),
+     &                th0n(nmax),pvn(nmax),zn(nmax),pn(nmax),
+     &                tmpn(nmax),qdfn(nmax),xmsfn(nmax),rhn(nmax),
+     +                xmarkn(nmax),vpn(nmax),qn(nmax),xmint(nmax),
+     +                sfn(nmax),agen(nmax),frday(nmax),frnght(nmax),
+     +                hno3n(nmax),xno2n(nmax),
+     +                o3n(nmax),h2on(nmax),minttime(nmax),ntraj
+
+c  .. trajectory diffusive tendency arrays
+      common/errtraj/ hno3nt(nmax),xno2nt(nmax),
+     +                o3nt(nmax),h2ont(nmax)
+
+c .. constituent estimated errors
+      common/errtraj/ hno3n_err(nmax),xno2n_err(nmax),
+     +                o3n_err(nmax),h2on_err(nmax)
+
+c  mixing ratio arrays
+      common/mixdata/hno3(nocmax),xno2(nocmax),
+     +               o3(nocmax),h2o(nocmax),noccul
+
+c .. constituent estimated errors
+      common/errtraj/ hno3_err(nmax),xno2_err(nmax),
+     +                o3_err(nmax),h2o_err(nmax)
+
+c  atmos arrays
+      common/haldata/thal(nocmax),xhal(nocmax),thhal(nocmax),
+     &               yhal(nocmax),xsat(nocmax),ysat(nocmax),
+     &               phal(nocmax),zhal(nocmax),ptrophal(nocmax),
+     &               ztrophal(nocmax),thtrophal(nocmax),
+     &               cloudhal(nocmax)
+c
+c  .. atmos integer arrays
+        common/halint/modehal(nocmax)
+
+c  IGW variables
+      common/igw/time,wmax
+
+c  Input file parameters
+      character*120 charexp,rfile,dirw,dirm,
+     &              ifilew(nfilmx),ifilem(nfilmx),ofile
+      common/ichar/charexp,dirw,dirm,rfile,ifilew,ifilem,ofile
+  
+      logical ukmo,nmc,ecmwf,restart,igw
+      common/ilogic/ukmo,nmc,ecmwf,restart,igw
+
+      integer nfiles
+      common/iintgr/nfiles
+
+      real dtflow,dtout,dt,theta,gmt,gmt2,julday
+      common/ireal/dtflow,dtout,dt,theta
+
+      integer*4 istime,ictime,ictime2,irtime
+      common/times/istime,ictime,ictime2,irtime,julday,gmt,gmt2

@@ -1,0 +1,139 @@
+c  file comm_ukmo_stream_3d.
+c  .. system parameters:              
+      parameter (ncmax=288,nrmax=181,nfilmx=183,nmax=6e5,
+     &           nstrmx=20,npvimx=20,ntmimx=20,nlegmx=20,
+     &           nthwmx=50,nthpmx=50,ndfil=10,
+     &           nhbin=9,nvbin=9)
+      parameter (ntdmx=700,nzdmx=500)
+      parameter (ntamx=100000,nafil=10)
+c  .. assimilation data
+      common/assimdata/usim(nrmax,ncmax,nthwmx),
+     &                 vsim(nrmax,ncmax,nthwmx),
+     &                 pvsim(nrmax,ncmax,nthwmx),
+     &                 psim(nrmax,ncmax,nthwmx),
+     &                 xmsfsim(nrmax,ncmax,nthwmx),
+     &                 qsim(nrmax,ncmax,nthwmx),
+     &                 qdfsim(nrmax,ncmax,nthwmx),
+     &                 xmrksim(nrmax,ncmax,nthwmx),
+     &                 xnosim(nrmax,ncmax,nthwmx),
+     &                 xcosim(nrmax,ncmax,nthwmx),
+     &                 xesim(nrmax,ncmax,nthwmx),
+     &                 xo3sim(nrmax,ncmax,nthwmx),
+     &                 xh2osim(nrmax,ncmax,nthwmx)
+c  .. wind data
+      common/winddata/ugrd(nrmax,ncmax,nthwmx),
+     &                vgrd(nrmax,ncmax,nthwmx),
+     &                xmsfgrd(nrmax,ncmax,nthwmx),
+     &                pgrd(nrmax,ncmax,nthwmx),
+     &                pvgrd(nrmax,ncmax,nthwmx),
+     &                qgrd(nrmax,ncmax,nthwmx),
+     &                qdfgrd(nrmax,ncmax,nthwmx),
+     &                xmrkgrd(nrmax,ncmax,nthwmx),
+     &                xnogrd(nrmax,ncmax,nthwmx),
+     &                xcogrd(nrmax,ncmax,nthwmx),
+     &                xegrd(nrmax,ncmax,nthwmx),
+     &                xo3grd(nrmax,ncmax,nthwmx),
+     &                xh2ogrd(nrmax,ncmax,nthwmx)
+
+c  .. integer*2 gridded data
+c     integer*2 nr,nc,nth,num
+      integer nr,nc,nth,num
+      common/int2data/nr,nc,nth,num
+c  .. real grid data
+      common/griddata/dlon,dlat,x(ncmax),y(nrmax),
+     &                thw(nthwmx),thp(nthpmx)
+c  .. trajectory arrays
+      common/trajdata/xn(nmax),yn(nmax),zn(nmax),
+     &                pvn(nmax),pn(nmax),xmsfn(nmax),
+     +                un(nmax),vn(nmax),qn(nmax),qdfn(nmax),
+     +                xmrkn(nmax),xnon(nmax),xcon(nmax),xen(nmax),
+     +                xo3n(nmax),xh2on(nmax),
+     +                t0n(nmax),agen(nmax),
+     +                frday(nmax),frnght(nmax),
+     +                xmint(nmax),ntraj
+c  .. IGW variables
+      common/iwg/etime,wmax
+c  .. Input file parameters
+      character*120 charexp,rfile,dir,ifile(nfilmx),dird,
+     +              dfile(ndfil),ofile,dirdc8,dc8file(ndfil),
+     +              diratt,attfile(nafil)
+
+      logical ukmo,nmc,ecmwf,restart,igw,stream,pviso,tiso,space,
+     &        range_fill,dial,er2,dc8,attrex
+      common/ilogic/ukmo,nmc,ecmwf,restart,igw,stream,pviso,
+     &              tiso,space,range_fill,dial,er2,dc8,attrex 
+c
+      integer nrday,nfiles,nstrm,npviso,ntiso,ndial,nleg,nthp,ndc8,nattrex
+      common/ichar/charexp,dir,rfile,ifile,dird,dfile,ofile,dirdc8,
+     +              dc8file,diratt,attfile
+
+      common/iintgr/nrday,nfiles,nstrm,npviso,ntiso,ndial,nleg,
+     &              nthp,ndc8,nattrex
+c
+      real dtflow,dt,ds1,strm0,dstrm,ds2,pv0,gmt,
+     &     dpv,ds3,temp0,dtemp,dxs,dys,
+     &     xleg0(nlegmx),yleg0(nlegmx),
+     &     xleg1(nlegmx),yleg1(nlegmx)
+
+c  .. Range ring variables
+      common/ireal/dtflow,dt,ds1,strm0,dstrm,ds2,pv0,
+     &             dpv,ds3,temp0,dtemp,dxs,dys,
+     &             stlon,stlat,er2_range,npts,nrings,
+     &             xleg0,yleg0,xleg1,yleg1,dtout,
+     &             ylat,ylon,ystd,pqdf,numth,th_array,numpt,nsd,
+     &             xmsfmn,upmsf,qdfmn,lwqdf,zetamn,lwzeta
+      integer*4 istime,ictime,irtime,julday
+      common/times/istime,ictime,irtime,julday,gmt
+
+c  .. Dial observation data
+      real*4 xsave(ntdmx),ysave(ntdmx),tsave(ntdmx)
+      real*4 psave(ntdmx,nzdmx),  o3save(ntdmx,nzdmx)
+
+c  .. Diagnosed dynamical data
+      real*4 thsave(ntdmx,nzdmx), pvsave(ntdmx,nzdmx),
+     1       xmsfsave(ntdmx,nzdmx)
+      real*4 qsave(ntdmx,nzdmx), qdfsave(ntdmx,nzdmx)
+      real*4 xmrksave(ntdmx,nzdmx)
+      real*4 usave(ntdmx,nzdmx), vsave(ntdmx,nzdmx)
+
+      integer*4 idial,ncount,nz,nt,nh,nv,dial_date
+      integer*4 iattrex,attrex_date(ntamx) 
+      common/dial/xsave,ysave,tsave,o3save,psave,
+     1            thsave,pvsave,usave,vsave,qsave,
+     2            xmsfsave,qdfsave,xmrksave
+     4            idial,ncount,nz,nt,nh,nv,dial_date,
+     5            attrex_date
+
+c  .. Annulus around DIAL data
+      real*4 xsave3d(ntdmx,nhbin,nvbin),
+     1       ysave3d(ntdmx,nhbin,nvbin),
+     1       zsave3d(ntdmx,nhbin,nvbin),
+     1       o3save3d(ntdmx,nhbin,nvbin)
+
+c  .. Diagnosed dynamical data at annulus
+      real*4 psave3d(ntdmx,nhbin,nvbin),
+     1       usave3d(ntdmx,nhbin,nvbin),
+     1       vsave3d(ntdmx,nhbin,nvbin),
+     1       thsave3d(ntdmx,nhbin,nvbin),
+     1       pvsave3d(ntdmx,nhbin,nvbin),
+     1       qsave3d(ntdmx,nhbin,nvbin),
+     1       xmsfsave3d(ntdmx,nhbin,nvbin),
+     1       qdfsave3d(ntdmx,nhbin,nvbin),
+     1       xmrksave3d(ntdmx,nhbin,nvbin),
+     1       vpsave3d(ntdmx,nhbin,nvbin),
+     1       sfsave3d(ntdmx,nhbin,nvbin)
+
+      common/dial3d/xsave3d,ysave3d,zsave3d,o3save3d,psave3d,
+     1            thsave3d,pvsave3d,usave3d,vsave3d,qsave3d,
+     2            xmsfsave3d,qdfsave3d,xmrksave3d,
+     3            vpsave3d,sfsave3d
+
+c  .. ATTREX flight data
+      real*4 attlon(ntamx),attlat(ntamx),atttheta(ntamx),atttime(ntamx)
+      real*4 attPV(ntamx),attP(ntamx),attU(ntamx),attQ(ntamx)
+      real*4 attQDF(ntamx),attMark(ntamx),attGeos_Theta(ntamx)
+      real*4 attTemp(ntamx),attAlt(ntamx),attV(ntamx)
+
+      common/attdata/attlon,attlat,atttheta,attPV,attP,attU,
+     1    attQ,attQDF,attMark,attGeos_Theta,attTemp,attAlt,attV,
+     2    atttime

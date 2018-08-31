@@ -1,0 +1,58 @@
+'Trajectory analyses '                                  ; charexp  experiment description
+1                                                       ; nthp   # Isentropic surfaces
+6000.						        ; isentropic surfaces
+.true.                                                  ; ukmo     ukmo wind
+.FALSE.                                                 ; gsfc     gsfc wind
+.FALSE.                                                 ; ecmwf    ecmwf wind
+.FALSE.                                                 ; restart  restart
+'rfill.traj'                                            ; rfile    restart file
+2005040112                                              ; irtime   restart date "yymmddhh"
+'/Volumes/earth/harvey/NOGAPS_Alpha/Datfiles/'	        ; dir      directory of winds
+3                                                       ; nfiles   number of input files
+'NOGAPSA_2007072012_MetO_sabmls_aim9c.nc3'
+'NOGAPSA_2007071912_MetO_sabmls_aim9c.nc3'
+'NOGAPSA_2007071812_MetO_sabmls_aim9c.nc3'
+2007072012                                              ; istime   start time "yymmddhh"
+24.							; dtflow   dt flow field (hrs)
+-20.							; dt       dt trajectory (min)
+.false.							; igw      gravity wave winds
+.false.							; stream   initialize streamline
+21							; nstrm    # of streamlines
+10.							; ds1      resolution (km)
+0.1 							; strm0    initial sf value
+0.1							; dstrm    increment (deg)
+.FALSE.							; pviso    initialize PV isopleth
+1							; npviso   # of isopleths
+.25							; ds2      resolution (km)
+-3.							; pv0      initial isopleth (pv units)
+-1.							; dpv      increment (pv units)
+.false.							; tiso     initialize T isopleth
+1							; ntiso    # of isopleths
+.5							; ds3      resolution (km)
+195.							; temp0    initial isopleth (K)
+-2.							; dtemp    increment (K)
+.true.							; space    initialize space fill
+0.5							; dxs      longitude spacing (deg)
+0.5							; dys      latitude spacing (deg)
+.false.							; range_fill fill space in range ring
+65.							; stlat    central latitude (deg.)
+212.							; central longitude (0->360 deg.)
+2700.							; er2_range (km)
+1							; nrings   # of rings
+1440							; npts     # of pts. in each ring
+.false.							; dial     initialize DIAL curtain
+'/aura2/harvey/DIAL_data/Datfiles/'			; dird     DIAL data directory
+1							; ndial    # DIAL curtains
+'dial_o3_20030109.diag'					; dfile    augmented DIAL file 
+.false.							; er2      initialize flight path
+1							; nleg     # of flight legs
+170.							; xleg0    initial longitude
+-45.							; yleg0    initial latitude
+135.							; xleg1    final longitude
+-80.							; yleg1    final latitude
+.false.                                                 ; dc8      initialize DC8 annulus
+'/aura2/harvey/DC8_data/Datfiles/'                	; dirdc8   DC8 data directory
+1                                                       ; ndc8     # DC8 flights
+'dc8_20030109.diag'                                     ; dc8file  augmented DC-8 file
+1.							; dtout    dt output field (hrs)
+'NOGAPS_20070720_3day_rdf_6000K.traj'			; ofile    output file

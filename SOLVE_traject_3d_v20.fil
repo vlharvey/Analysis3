@@ -1,0 +1,62 @@
+'Trajectory analyses '                                  ; charexp  experiment description
+1                                                       ; nthp   # Isentropic surfaces
+400.							; isentropic surfaces
+.true.                                                  ; ukmo     ukmo wind
+.FALSE.                                                 ; gsfc     gsfc wind
+.FALSE.                                                 ; ecmwf    ecmwf wind
+.FALSE.                                                 ; restart  restart
+'rfill.traj'                                            ; rfile    restart file
+2005040112                                              ; irtime   restart date "yymmddhh"
+'/aura7/harvey/GEOS5_data/Datfiles/'                    ; dir      directory of winds
+7                                                      ; nfiles   number of input files
+'DAS.ops.asm.tavg3d_dyn_v.GEOS520.MetO.20090121_AVG.V01.nc3'
+'DAS.ops.asm.tavg3d_dyn_v.GEOS520.MetO.20090120_AVG.V01.nc3'
+'DAS.ops.asm.tavg3d_dyn_v.GEOS520.MetO.20090119_AVG.V01.nc3'
+'DAS.ops.asm.tavg3d_dyn_v.GEOS520.MetO.20090118_AVG.V01.nc3'
+'DAS.ops.asm.tavg3d_dyn_v.GEOS520.MetO.20090117_AVG.V01.nc3'
+'DAS.ops.asm.tavg3d_dyn_v.GEOS520.MetO.20090116_AVG.V01.nc3'
+'DAS.ops.asm.tavg3d_dyn_v.GEOS520.MetO.20090115_AVG.V01.nc3'
+2009012112                                              ; istime   start time "yymmddhh"
+24.							; dtflow   dt flow field (hrs)
+-20.							; dt       dt trajectory (min)
+.false.							; igw      gravity wave winds
+.false.							; stream   initialize streamline
+21							; nstrm    # of streamlines
+10.							; ds1      resolution (km)
+0.1 							; strm0    initial sf value
+0.1							; dstrm    increment (deg)
+.FALSE.							; pviso    initialize PV isopleth
+1							; npviso   # of isopleths
+.25							; ds2      resolution (km)
+-3.							; pv0      initial isopleth (pv units)
+-1.							; dpv      increment (pv units)
+.false.							; tiso     initialize T isopleth
+1							; ntiso    # of isopleths
+.5							; ds3      resolution (km)
+195.							; temp0    initial isopleth (K)
+-2.							; dtemp    increment (K)
+.false.							; space    initialize space fill
+1.0							; dxs      longitude spacing (deg)
+1.0							; dys      latitude spacing (deg)
+.false.							; range_fill fill space in range ring
+65.							; stlat    central latitude (deg.)
+212.							; central longitude (0->360 deg.)
+2700.							; er2_range (km)
+1							; nrings   # of rings
+1440							; npts     # of pts. in each ring
+.false.							; dial     initialize DIAL curtain
+'/aura2/harvey/DIAL_data/Datfiles/'			; dird     DIAL data directory
+1							; ndial    # DIAL curtains
+'dial_o3_20030109.diag'					; dfile    augmented DIAL file 
+.true.							; er2      initialize flight path
+1							; nleg     # of flight legs
+170.							; xleg0    initial longitude
+-45.							; yleg0    initial latitude
+135.							; xleg1    final longitude
+-80.							; yleg1    final latitude
+.false.                                                 ; dc8      initialize DC8 annulus
+'/aura2/harvey/DC8_data/Datfiles/'                	; dirdc8   DC8 data directory
+1                                                       ; ndc8     # DC8 flights
+'dc8_20030109.diag'                                     ; dc8file  augmented DC-8 file
+6.							; dtout    dt output field (hrs)
+'geos5_20090221_rdf_1000-2600K.traj'  			; ofile    output file

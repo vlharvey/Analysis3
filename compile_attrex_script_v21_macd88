@@ -1,0 +1,1 @@
+ifort ATTREX_traject_3d_v21.f -o ATTREX_traject_3d_v21.x -I/Volumes/Data/Libraries/netcdf-3.6.2-ifort11.1-gcc4.2.1/include -L/Volumes/Data/Libraries/netcdf-3.6.2-ifort11.1-gcc4.2.1/lib -lnetcdf
